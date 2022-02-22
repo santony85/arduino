@@ -1,0 +1,1 @@
+#define image 0x01

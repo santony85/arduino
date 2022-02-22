@@ -1,0 +1,27 @@
+#######################################
+# Syntax Coloring Map x10rf
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+x10rf	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+init	KEYWORD2
+RFXmeter	KEYWORD2
+RFXsensor	KEYWORD2
+x10Switch	KEYWORD2
+x10Security	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+ON	LITERAL1
+OFF	LITERAL1
+BRIGHT	LITERAL1
+DIM	LITERAL1
