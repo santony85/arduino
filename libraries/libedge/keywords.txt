@@ -1,0 +1,28 @@
+#######################################
+# Syntax Coloring Map For libedge
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+BUF_SIZE_SMALL	KEYWORD1
+BUF_SIZE_LARGE	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+mqttConnect	KEYWORD2
+mqttDisconnect	KEYWORD2
+mqttCreateNode	KEYWORD2
+mqttCreateRemoteCSE	KEYWORD2
+mqttCreateContainer	KEYWORD2
+mqttCreateMgmtCmd	KEYWORD2
+mqttCreateContentInstance	KEYWORD2
+mqttSubscribe	KEYWORD2
+getTempData	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################

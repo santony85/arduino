@@ -1,0 +1,17 @@
+{
+    "name": "libedge",
+    "keywords": "thingplug, iot, edgeilab",
+    "description": "Edgeilab IoT-EM ThingPlug Library.",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/EdgeiLAB/libedge.git"
+    },
+    "version": "1.0",
+    "exclude": "",
+    "examples": "examples/*/*.ino",
+    "frameworks": "arduino",
+    "platforms": [
+        "atmelavr",
+        "espressif"
+    ]
+}

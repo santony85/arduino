@@ -6,7 +6,7 @@ TOKEN_TEXT(CPIN, "+CPIN");
 TOKEN_TEXT(CSQ, "+CSQ");
 TOKEN_TEXT(CMGS, "+CMGS");
 TOKEN_TEXT(CMGL, "+CMGL");
-
+TOKEN_TEXT(CMGR, "+CMGR");
 
 bool SIM808::simUnlock(const char* pin)
 {
@@ -90,24 +90,54 @@ bool SIM808::sendSms(const char *addr, const char *msg)
 	return waitResponse(60000L, TO_F(TOKEN_CMGS)) == 0 &&
 		waitResponse() == 0;
 }
-
-char SIM808::isSMSunread(){
-
-	sendAT(S_F("AT+CMGL=\"REC UNREAD\",1"));
-
+/* ok */
+int SIM808::isSMSunread(char *response, size_t responseSize){
+	flushInput();
+	char lstsms[3];
+	sendAT(S_F("+CMGL=\"REC UNREAD\",1"));
 	if(waitResponse(TO_F(TOKEN_CMGL)) == 0) {
-		Serial.println("win");
-		return 0; 
+	  copyCurrentLine(lstsms, 3, strlen_P(TOKEN_CMGL) + 2);//2
+	  return atoi(lstsms); 
 	}
-	Serial.println("lost");
-	//char *response, size_t responseSize;
-	//copyCurrentLine(response, responseSize, strlen_P(TOKEN_GPS_INFO) + 2);
-	Serial.println();	
-	return -1;
+	return 0;
 }
 
-bool SIM808::readSms(int messageIndex, char *message, int length, char *phone, char *datetime){
-    
-	
-	return false;
+
+String SIM808::readSms(int messageIndex){
+	//flushInput();
+	String cmd="+CMGR="+String(messageIndex);
+	char message[160];
+	sendCommand(cmd.c_str(), message, 160);
+
+	char* result;
+	uint8_t index = 1;
+	char* p = find(message, '\n', index);
+	if (p == NULL) {
+		Serial.println("Not found");
+		return "";
+	}
+	String res=p;
+	if(res.indexOf("ERROR")>-1)return "";
+	else {
+		if(res.indexOf("\r\n")>-1){
+			String vmess= res.substring(0, res.indexOf("\r\n"));
+			return vmess;
+		}
+	}
+	return "";
+
+}
+
+bool SIM808::deleteAllSms(){
+  flushInput();
+  sendAT(S_F("+CMGD=1,4"));
+  return waitResponse(5000L) == 0;
+
+}
+
+bool SIM808::deleteSms(int messageIndex)
+{
+	String cmd="+CMGD="+String(messageIndex);
+	sendAT(S_F(cmd.c_str()));
+	return waitResponse() == 0;
 }

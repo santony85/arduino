@@ -3,6 +3,7 @@
 #include <SIMComAT.h>
 #include "SIM808.Types.h"
 
+
 #define HTTP_TIMEOUT 10000L
 #define GPS_ACCURATE_FIX_MIN_SATELLITES 4
 #define SIM808_UNAVAILABLE_PIN 255
@@ -53,6 +54,7 @@ private:
 	 * Set one of the bearer settings for application based on IP.
 	 */
 	bool setBearerSetting(ATConstStr parameter, const char* value);
+
 
 public:
 	SIM808(uint8_t resetPin, uint8_t pwrKeyPin = SIM808_UNAVAILABLE_PIN, uint8_t statusPin = SIM808_UNAVAILABLE_PIN);
@@ -125,11 +127,19 @@ public:
 	/**
 	 * read a SMS to the provided number.
 	 */
-	bool readSms(int messageIndex, char *message, int length, char *phone, char *datetime);
-    	/**
+	String readSms(int messageIndex);
+	/**
+	 * delete a SMS to the provided index.
+	 */
+	bool deleteSms(int index);
+	/**
+	 * delete all SMS.
+	 */
+	bool deleteAllSms();
+    /**
 	 * check if is unreaded SMS.
 	 */
-	char isSMSunread();
+	int isSMSunread(char *response, size_t responseSize);
 	/**
 	 * Get a boolean indicating wether or not GPRS is currently enabled.
 	 */
@@ -141,7 +151,14 @@ public:
 	/**
 	 * Shutdown GPRS properly.
 	 */
-	bool disableGprs();
+    bool disableGprs();
+	/**
+	 * Connect TCP properly.
+	 */
+
+	String enableTcp(const char* ip,const char* port, const char *apn);
+	bool SendTcpMessage(const char* message);
+
 	/**
 	 * Get the device current network registration status.
 	 */

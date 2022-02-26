@@ -25,22 +25,29 @@ bool SIM808::getGpsPosition(char *response, size_t responseSize)
 void SIM808::getGpsField(const char* response, SIM808GpsField field, char** result) 
 {
 	char *pTmp = find(response, ',', (uint8_t)field);
-	*result = pTmp;
+	String res = pTmp;
+	String str= res.substring(0, res.indexOf("."));
+	char str_array[str.length()];
+	str.toCharArray(str_array, str.length()+1);
+	char* token = strtok(str_array, "");
+	*result = token;
 }
 
 bool SIM808::getGpsField(const char* response, SIM808GpsField field, uint16_t* result)
 {
-	Serial.println("getGpsField");
 	if (field < SIM808GpsField::Speed) return false;
 
 	parse(response, ',', (uint8_t)field, result);
 	return true;
 }
 
+
+
 bool SIM808::getGpsField(const char* response, SIM808GpsField field, float* result)
 {
-	Serial.println("getGpsFieldB");
-	if (field != SIM808GpsField::Course && 
+	if (
+		
+		field != SIM808GpsField::Course && 
 		field != SIM808GpsField::Latitude &&
 		field != SIM808GpsField::Longitude &&
 		field != SIM808GpsField::Altitude &&

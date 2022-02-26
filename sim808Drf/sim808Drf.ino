@@ -12,7 +12,7 @@ char wspeed[12];
 char phone[16]="0659401246";
 char datetime[24];
 
-#define MESSAGE_LENGTH 20
+
 char gprsBuffer[64];
 char *s = NULL;
 

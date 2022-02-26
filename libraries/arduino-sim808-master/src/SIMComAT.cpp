@@ -181,6 +181,8 @@ bool SIMComAT::parse(const char* str, char divider, uint8_t index, float* result
 
 	errno = 0;
 	*result = strtod(p, NULL);
-
 	return errno == 0;
 }
+
+
+

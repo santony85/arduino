@@ -157,6 +157,7 @@ protected:
 	 */
 	bool parseReply(char divider, uint8_t index, float* result) { return parse(replyBuffer, divider, index, result); }
 
+
 	/**
 	 * Perform the minmum commands needed to get the device communication up and running.
 	 */
